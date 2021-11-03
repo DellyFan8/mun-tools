@@ -1,8 +1,10 @@
 package com.example.application;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
+import com.vaadin.flow.component.page.Push;
 import com.vaadin.flow.server.PWA;
 
+import com.vaadin.flow.shared.communication.PushMode;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -19,6 +21,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
  *
  */
 @SpringBootApplication
+@Push
 @Theme(value = "muntools", variant = Lumo.DARK)
 @PWA(name = "MUN Tools", shortName = "MUN Tools", offlineResources = {"images/logo.png"})
 @NpmPackage(value = "line-awesome", version = "1.3.0")

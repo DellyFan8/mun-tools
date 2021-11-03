@@ -1,8 +1,10 @@
 package com.example.application.security;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.example.application.data.Role;
 import com.example.application.data.entity.User;
 import com.example.application.data.service.UserRepository;
 
@@ -32,8 +34,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     private static List<GrantedAuthority> getAuthorities(User user) {
-        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
-                .collect(Collectors.toList());
+        if(user.getRole().equals("admin")){
+            return Collections.singleton(Role.ADMIN).stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
+                    .collect(Collectors.toList());
+        }
+        else{
+            return Collections.singleton(Role.USER).stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
+                    .collect(Collectors.toList());
+        }
+//        return user.getRoles().stream().map(role -> new SimpleGrantedAuthority("ROLE_" + role.getRoleName()))
+//                .collect(Collectors.toList());
 
     }
 

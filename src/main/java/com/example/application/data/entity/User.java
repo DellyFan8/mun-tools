@@ -1,27 +1,63 @@
 package com.example.application.data.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
-import com.example.application.data.AbstractEntity;
+//import com.example.application.data.AbstractEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.Collections;
 import java.util.Set;
-import javax.persistence.ElementCollection;
-import javax.persistence.FetchType;
+
 import com.example.application.data.Role;
-import javax.persistence.Lob;
 
 @Entity
-public class User extends AbstractEntity {
+@Table(name = "user")
+public class User{// extends AbstractEntity {
 
+    private int idnum;
     private String username;
     private String name;
     @JsonIgnore
-    private String hashedPassword;
-    @ElementCollection(fetch = FetchType.EAGER)
-    private Set<Role> roles;
+    private String hashed_password;
+  //  @Transient private Set<Role> roles;
+    private String role;
     @Lob
     private String profilePictureUrl;
 
+
+    public User(int id, String username, String name, String hashedPassword, String role, String profilePictureUrl) {
+        this.idnum = id;
+        this.username = username;
+        this.name = name;
+        this.hashed_password = hashedPassword;
+        this.role = role;
+        this.profilePictureUrl = profilePictureUrl;
+
+//        if(role.equals("admin")){
+//            roles = Collections.singleton(Role.ADMIN);
+//        }
+//        else{
+//            roles = Collections.singleton(Role.USER);
+//        }
+
+    }
+
+    public User() {
+    }
+
+
+
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    public int getIdnum() {
+        return idnum;
+    }
+
+    public void setIdnum(int id) {
+        this.idnum = id;
+    }
     public String getUsername() {
         return username;
     }
@@ -35,16 +71,31 @@ public class User extends AbstractEntity {
         this.name = name;
     }
     public String getHashedPassword() {
-        return hashedPassword;
+        return hashed_password;
     }
     public void setHashedPassword(String hashedPassword) {
-        this.hashedPassword = hashedPassword;
+        this.hashed_password = hashedPassword;
     }
-    public Set<Role> getRoles() {
-        return roles;
+//    @Transient
+//    public Set<Role> getRoles() {
+//        if(role.equals("admin")){
+//            return Collections.singleton(Role.ADMIN);
+//        }
+//        else{
+//            return Collections.singleton(Role.USER);
+//        }
+//    }
+//    @Transient
+//    public void setRoles(Set<Role> roles) {
+//        System.out.println(""+roles.toString());
+//    }
+
+    public String getRole() {
+        return role;
     }
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+
+    public void setRole(String role) {
+        this.role = role;
     }
     public String getProfilePictureUrl() {
         return profilePictureUrl;
